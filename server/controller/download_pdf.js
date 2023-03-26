@@ -64,7 +64,7 @@ const csvdownload = async (req, res) => {
 const unverifiedData = async (req, res) => {
   try {
     const users = await User.find({ isPaymentVerified: false }).select(
-      "name email phone college techmitiId transactionId caCode paymentMode"
+      "name email phone college techmitiId transactionId caCode paymentMode isReceiptDeleted"
     );
     res.send(users);
   } catch (err) {
@@ -81,6 +81,21 @@ const allData = async (req, res) => {
     res.status(500).json({ message: "internal server error" });
   }
 };
+const deleteUser = async (req, res) => {
+  try {
+    const {id} = req.query;
+    const user = await User.findById(id);
+    if(user){
+      await user.remove();
+      res.send({message: 'user deleted'});
+    } else{
+      res.status(400).send({message: 'user not found'});
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({message: 'internal server error'});
+  }
+}
 // const downloadReceipt = async (req, res) => {
 //   try {
 //     const { id } = req.query;
@@ -109,4 +124,4 @@ const verifypayment = async (req, res) => {
   } catch (error) {}
 };
 
-module.exports = { csvdownload, unverifiedData, verifypayment, allData };
+module.exports = { csvdownload, unverifiedData, verifypayment, allData, deleteUser };

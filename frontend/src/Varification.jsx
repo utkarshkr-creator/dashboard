@@ -33,6 +33,7 @@ function Verification() {
   const handlechange=()=>{
       navigate('/datatable')
   }
+ 
 
   return (
     <div className="App">
@@ -78,6 +79,7 @@ function Verification() {
                 <td>{demo.transactionId}</td>
                 <td><button onClick={() => downloadHandler(demo._id)}>download</button></td>
                 <td><button onClick={() => verifyHandler(demo._id)}>verify</button></td>
+
 
 
               </tr>

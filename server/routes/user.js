@@ -21,6 +21,7 @@ router.get('/unvieriedata',  downloadData.unverifiedData);
 // router.get('/downloadReceipt',  downloadData.downloadReceipt);
 router.get('/verified',  downloadData.verifypayment);
 router.get('/alldata', downloadData.allData);
+router.get('/deleteUser', downloadData.deleteUser);
 
 
 module.exports = router;

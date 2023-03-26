@@ -20,6 +20,14 @@ const DataTable = () => {
     }
 
   }
+  const deleteUserHandler = async (id) => {
+    if (window.confirm("bhai pakka na baad me rona mat ")) {
+      const { data } = await axios.get(`http://localhost:5000/api/user/deleteUser?id=${id}`);
+      setAdd(add + 1);
+
+    }
+
+  }
     return (
         <div className="App"  >
           <div >
@@ -39,6 +47,7 @@ const DataTable = () => {
                   <th>isVerify</th>
                   <th>Accomo<br/>dation</th>
                   <th>Delete Receipt</th>
+                  <th>Delete User</th>
                   
     
                 </tr>
@@ -59,6 +68,7 @@ const DataTable = () => {
                     <td>{demo.isPaymentVerified ? 'yes' : 'no'}</td>
                     <td>{demo.isAccommodation ? 'yes' : 'no'}</td>
                     <td>{demo.isReceiptDeleted ? 'Deleted' : <button disabled={!demo.isPaymentVerified} onClick={() => deleteHandler(demo._id)}>Delete receipt</button>}</td>
+                    <td>{<button  onClick={() => deleteUserHandler(demo._id)}>Delete user</button>}</td>
     
     
                   </tr>
