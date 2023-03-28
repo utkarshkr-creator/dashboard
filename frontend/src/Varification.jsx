@@ -33,9 +33,15 @@ function Verification() {
   const handlechange=()=>{
       navigate('/datatable')
   }
- 
+  const deleteUserHandler = async (id) => {
+    if (window.confirm("bhai pakka na baad me rona mat ")) {
+      const { data } = await axios.get(`http://localhost:5000/api/user/deleteUser?id=${id}`);
+      setAdd(add + 1);
 
-  return (
+    }
+
+  }
+ return (
     <div className="App">
       <div>
         <button onClick={handlechange}>Bhai sb data yha milega</button>
@@ -50,19 +56,24 @@ function Verification() {
           ))}
         </select>
         <button disabled={!eventchange} onClick={eventdownloadhandler}>Download</button>
+        
+        <p>total unverified: {data.length}</p>
         <table>
           <thead >
             <tr>
               <th>Name</th>
               <th>TECHMITIID</th>
+              <th>Date</th>
               <th>college</th>
               <th>Phone</th>
               <th>Email</th>
               <th>Payment mode</th>
               <th>CA Id</th>
               <th>transaction ID</th>
-              <th>Download Receipt</th>
+              <th>show Receipt</th>
               <th>Verify</th>
+              
+              <th>Delete User</th>
 
             </tr>
           </thead>
@@ -71,14 +82,17 @@ function Verification() {
               <tr >
                 <td>{demo.name}</td>
                 <td>{demo.techmitiId}</td>
+                <td>{demo.createdAt}</td>
                 <td>{demo.college}</td>
                 <td>{demo.phone}</td>
                 <td>{demo.email}</td>
                 <td>{demo.paymentMode}</td>
                 <td>{demo.caCode}</td>
                 <td>{demo.transactionId}</td>
-                <td><button onClick={() => downloadHandler(demo._id)}>download</button></td>
+                <td><button onClick={() => window.open(demo.receipt)}>show</button></td>
                 <td><button onClick={() => verifyHandler(demo._id)}>verify</button></td>
+                
+                <td>{<button  onClick={() => deleteUserHandler(demo._id)}>Delete user</button>}</td>
 
 
 
@@ -90,7 +104,9 @@ function Verification() {
 
       </div>
     </div>
-  )
+ )
+
+  
 }
 
 export default Verification

@@ -63,8 +63,8 @@ const csvdownload = async (req, res) => {
 
 const unverifiedData = async (req, res) => {
   try {
-    const users = await User.find({ isPaymentVerified: false }).select(
-      "name email phone college techmitiId transactionId caCode paymentMode isReceiptDeleted"
+    const users = await User.find({ isPaymentVerified: false }, null, {sort: {createdAt: -1}}).select(
+      "name email phone college techmitiId transactionId caCode paymentMode isReceiptDeleted receipt createdAt"
     );
     res.send(users);
   } catch (err) {
@@ -73,8 +73,8 @@ const unverifiedData = async (req, res) => {
 };
 const allData = async (req, res) => {
   try {
-    const users = await User.find({}).select(
-      "name email phone  techmitiId transactionId caCode paymentMode isPaymentVerified tshirtSize isAccommodation gender college isReceiptDeleted"
+    const users = await User.find({}, null, {sort: {createdAt: -1}}).select(
+      "name email phone createdAt techmitiId transactionId caCode paymentMode isPaymentVerified tshirtSize isAccommodation gender college isReceiptDeleted receipt"
     );
     res.send(users);
   } catch (err) {
@@ -87,6 +87,7 @@ const deleteUser = async (req, res) => {
     const user = await User.findById(id);
     if(user){
       await user.remove();
+      
       res.send({message: 'user deleted'});
     } else{
       res.status(400).send({message: 'user not found'});

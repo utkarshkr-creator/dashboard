@@ -31,11 +31,13 @@ const DataTable = () => {
     return (
         <div className="App"  >
           <div >
+            <p>total registration: {data.length}</p>
             <table>
               <thead >
                 <tr>
                   <th>Name</th>
                   <th>TECHMITIID</th>
+                  <th>Date</th>
                   <th>college</th>
                   <th>Phone</th>
                   <th>Email</th>
@@ -46,7 +48,7 @@ const DataTable = () => {
                   <th>transaction ID</th>
                   <th>isVerify</th>
                   <th>Accomo<br/>dation</th>
-                  <th>Delete Receipt</th>
+                  <th>show receipt</th>
                   <th>Delete User</th>
                   
     
@@ -57,6 +59,7 @@ const DataTable = () => {
                   <tr >
                     <td>{demo.name}</td>
                     <td>{demo.techmitiId}</td>
+                <td>{demo.createdAt}</td>
                     <td>{demo.college}</td>
                     <td>{demo.phone}</td>
                     <td>{demo.email}</td>
@@ -67,8 +70,8 @@ const DataTable = () => {
                     <td>{demo.transactionId}</td>
                     <td>{demo.isPaymentVerified ? 'yes' : 'no'}</td>
                     <td>{demo.isAccommodation ? 'yes' : 'no'}</td>
-                    <td>{demo.isReceiptDeleted ? 'Deleted' : <button disabled={!demo.isPaymentVerified} onClick={() => deleteHandler(demo._id)}>Delete receipt</button>}</td>
-                    <td>{<button  onClick={() => deleteUserHandler(demo._id)}>Delete user</button>}</td>
+                    <td><button onClick={() => window.open(demo.receipt)}>show</button></td>      
+                                  <td>{<button  onClick={() => deleteUserHandler(demo._id)}>Delete user</button>}</td>
     
     
                   </tr>
